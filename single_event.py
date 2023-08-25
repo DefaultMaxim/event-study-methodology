@@ -107,7 +107,7 @@ def permutation_test(portfolio):
     pass
 
 
-close = pd.read_csv('data import/datasets/close_portfolio.csv', index_col='time')
+close = pd.read_csv('data_import/datasets/close_portfolio.csv', index_col='time')
 
 close['market'] = [close.iloc[i].sum() for i in range(len(close))]
 

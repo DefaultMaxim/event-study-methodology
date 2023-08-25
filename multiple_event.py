@@ -279,7 +279,7 @@ def skewness_corrected_test(portfolio,
     return res[-2 * n:]
 
 
-close = pd.read_csv('data import/datasets/close_portfolio.csv', index_col='time')
+close = pd.read_csv('data_import/datasets/close_portfolio.csv', index_col='time')
 
 close['market'] = [close.iloc[i].sum() for i in range(len(close))]
 
