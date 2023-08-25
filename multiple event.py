@@ -115,6 +115,7 @@ def multiple_cross_sectional_test(portfolio,
         sign = t.ppf(1 - alpha/2, df=len(ar) - 1)
 
         data = {#'car': car,
+                #'aar': aar,
                 'caar': caar,
                 't_stat': t_stat,
                 'p_value': p_value,
@@ -198,7 +199,8 @@ def crude_dependence(portfolio,
 
         sign = t.ppf(1 - alpha / 2, df=len(aar) - 1)
 
-        data = {'caar': caar,
+        data = {'aar': aar,
+                'caar': caar,
                 't_stat': t_stat,
                 'p_value': p_value,
                 'significant': abs(t_stat) > sign}
