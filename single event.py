@@ -113,7 +113,7 @@ close['market'] = [close.iloc[i].sum() for i in range(len(close))]
 
 close.index = pd.to_datetime(close.index)
 
-date = pd.to_datetime('2023-04-25 07:00:00+00:00')
+date = pd.to_datetime('2022-02-24 07:00:00+00:00')
 
 results_first = single_t_test(portfolio=close, event_date=date)
 

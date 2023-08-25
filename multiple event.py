@@ -214,6 +214,71 @@ def crude_dependence(portfolio,
         return 'method does not exist'
 
 
+def skewness_corrected_test(portfolio,
+                            event_date,
+                            alpha: float = 0.05,
+                            method: str = 'aar'):
+
+    """
+
+    https://www.eventstudytools.com/significance-tests#skewness
+    :param portfolio: portfolio with market price
+    :param event_date: event date
+    :param alpha: significance level
+    :param method: aar or caar method
+    :return: residual table
+
+    """
+
+    event_idx, horizon_idx, start_idx, end_idx = get_horizons(portfolio, event_date)
+
+    ar, df, var, std, model = get_all_attributes(portfolio=portfolio,
+                                                 event_date=event_date,
+                                                 model='lin_reg',
+                                                 full_ar=True)
+
+    n = (end_idx - horizon_idx) // 2
+
+    for i in range(len(ar)):
+
+        ar[i] = ar[i][start_idx:event_idx + n]
+
+    aar = 1/len(ar) * np.sum(ar, axis=0)
+
+    arr = []
+
+    for j in range(len(aar)):
+
+        arr.append(np.array([(ar[i][j] - aar[j]) ** 2 for i in range(len(ar))]))
+
+    arr = np.array(arr)
+
+    s_aar = np.sqrt(1 / (len(ar) - 1) * np.array([np.sum(arr[i]) for i in range(len(arr))]))
+
+    tmp_arr = [((ar[i][-n] - aar[-n]) ** 3) / (s_aar[-n] ** 3) for i in range(len(ar))]
+
+    gamma = len(ar)/((len(ar) - 2)*(len(ar) - 1)) * np.sum(tmp_arr)
+
+    s = aar / s_aar
+
+    t_stat = np.sqrt(len(ar)) * (s + 1/3 * gamma * s**2 + 1/27 * gamma**2 * s**3 + 1/(6*len(ar))*gamma)
+
+    t_stat = t_stat
+
+    p_value = (1.0 - t.cdf(abs(t_stat), df=len(ar) - 1)) * 2
+
+    sign = t.ppf(1 - alpha/2, df=len(ar) - 1)
+
+    data = {'aar': aar,
+            't_stat': t_stat,
+            'p_value': p_value,
+            'significant': abs(t_stat) > sign}
+
+    res = pd.DataFrame(data=data, index=ar[0].index)
+
+    return res[-2 * n:]
+
+
 close = pd.read_csv('data import/datasets/close_portfolio.csv', index_col='time')
 
 close['market'] = [close.iloc[i].sum() for i in range(len(close))]
@@ -230,6 +295,8 @@ result_2_caar = multiple_cross_sectional_test(portfolio=close, event_date=date, 
 result_3_aar = crude_dependence(portfolio=close, event_date=date, method='aar')
 result_3_caar = crude_dependence(portfolio=close, event_date=date, method='caar')
 
+result_4_aar = skewness_corrected_test(portfolio=close, event_date=date, method='aar')
+
 print('RES 1 T_TEST')
 display(result_1)
 
@@ -244,5 +311,8 @@ display(result_3_aar)
 
 print('RES 3 CRUDE CAAR')
 display(result_3_caar)
+
+print('RES 4 SKEW AAR')
+display(result_4_aar)
 
 market_plot(close.market, event_date=date)
