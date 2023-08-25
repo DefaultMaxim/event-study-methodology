@@ -3,7 +3,7 @@ import statsmodels.api as sm
 from scipy.stats import t
 from IPython.display import display
 import pandas as pd
-from utils import get_all_attributes, portfolio_plot
+from utils import get_all_attributes, portfolio_plot, get_horizons
 
 
 def single_t_test(portfolio, event_date, alpha: float = 0.05):
@@ -66,9 +66,23 @@ def single_criterion_t_test(portfolio, event_date, alpha: float = .05):
 
     """
 
-    ar, df, var, std, model = get_all_attributes(portfolio=portfolio, event_date=event_date)
+    event_idx, horizon_idx, start_idx, end_idx = get_horizons(portfolio, event_date)
+
+    ar, df, var, std, model = get_all_attributes(portfolio=portfolio,
+                                                 event_date=event_date,
+                                                 full_ar=True)
+
+    n = (end_idx - horizon_idx) // 2
+
+    for i in range(len(ar)):
+
+        ar[i] = ar[i][start_idx:event_idx + n]
 
     s_ar = np.sqrt(1/(df[0] - 2) * np.sum(np.array(ar)**2, axis=1))
+
+    for i in range(len(ar)):
+
+        ar[i] = ar[i][-2 * n:]
 
     t_stat = np.array([ar[i]/s_ar[i] for i in range(len(ar))])
 
