@@ -321,6 +321,5 @@ market_plot(close.market, event_date=date)
 def test_new_branch(x, y, z):
     return x, y,z
 
-
 def plus(a, b):
     return a+b
