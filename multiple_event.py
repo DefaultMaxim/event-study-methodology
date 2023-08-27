@@ -324,3 +324,7 @@ def test_new_branch(x, y, z):
 
 def plus(a, b):
     return a+b
+
+
+def minus(a, b):
+    return a - b
