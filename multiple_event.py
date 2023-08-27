@@ -316,4 +316,3 @@ print('RES 4 SKEW AAR')
 display(result_4_aar)
 
 market_plot(close.market, event_date=date)
-
