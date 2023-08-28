@@ -314,5 +314,6 @@ display(result_3_caar)
 
 print('RES 4 SKEW AAR')
 display(result_4_aar)
+result_4_aar.to_csv('res_example.csv')
 
 market_plot(close.market, event_date=date)
