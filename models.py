@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+from collections import namedtuple
+
 
 """
 
@@ -163,7 +165,11 @@ def min_risk_portfolio_model(portfolio, keep_shorts: bool = True):
 
         data = pd.DataFrame(data=x, index=portfolio.columns, columns=['proportions']).T
 
-        return data, returns, risk
+        ret_tup = namedtuple('Params', ['return', 'risk'])
+
+        params = ret_tup(returns, risk)
+
+        return data, params
 
 
 def max_sharpe_rate_portfolio(portfolio, keep_shorts: bool = True):
@@ -203,7 +209,11 @@ def max_sharpe_rate_portfolio(portfolio, keep_shorts: bool = True):
 
         data = pd.DataFrame(data=x, index=portfolio.columns, columns=['proportions']).T
 
-        return data, returns, risk
+        ret_tup = namedtuple('Params', ['return', 'risk'])
+
+        params = ret_tup(returns, risk)
+
+        return data, params
 
 
 def constant_mean(returns,
