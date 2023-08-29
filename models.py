@@ -93,11 +93,14 @@ def compute_portfolio_params(portfolio):
     :param portfolio: close price portfolio wo market price
     :return: alpha, beta, gamma, delta
     """
+
+    portfolio = portfolio.dropna(axis=1)
+
     returns = portfolio.pct_change().fillna(0)
     mean_returns = returns.mean()
 
-    r = np.array(mean_returns)
-    v = np.array(returns.cov())
+    r = mean_returns
+    v = returns.cov()
 
     v_shape = np.shape(v)
     r_shape = np.shape(r)
@@ -131,13 +134,15 @@ def min_risk_portfolio_model(portfolio, keep_shorts: bool = True):
     :return: portfolio, risk, returns
     """
 
+    portfolio = portfolio.dropna(axis=1)
+
     alpha, beta, gamma, delta = compute_portfolio_params(portfolio)
 
     returns = portfolio.pct_change().fillna(0)
     mean_returns = returns.mean()
 
-    r = np.array(mean_returns)
-    v = np.array(returns.cov())
+    r = mean_returns
+    v = returns.cov()
 
     v_shape = np.shape(v)
     r_shape = np.shape(r)
@@ -156,7 +161,7 @@ def min_risk_portfolio_model(portfolio, keep_shorts: bool = True):
 
         risk = 1/np.sqrt(alpha)
 
-        return x, returns, risk
+        return x, returns, risk, portfolio.columns
 
 
 def max_sharpe_rate_portfolio(portfolio, keep_shorts: bool = True):
@@ -169,6 +174,8 @@ def max_sharpe_rate_portfolio(portfolio, keep_shorts: bool = True):
     :return: portfolio, risk, returns
     """
 
+    portfolio = portfolio.dropna(axis=1)
+
     if keep_shorts:
 
         alpha, beta, gamma, delta = compute_portfolio_params(portfolio)
@@ -176,8 +183,8 @@ def max_sharpe_rate_portfolio(portfolio, keep_shorts: bool = True):
         returns = portfolio.pct_change().fillna(0)
         mean_returns = returns.mean()
 
-        r = np.array(mean_returns)
-        v = np.array(returns.cov())
+        r = mean_returns
+        v = returns.cov()
 
         v_shape = np.shape(v)
         r_shape = np.shape(r)
@@ -192,7 +199,7 @@ def max_sharpe_rate_portfolio(portfolio, keep_shorts: bool = True):
 
         risk = np.sqrt(gamma)/beta
 
-        return x, returns, risk
+        return x, returns, risk, portfolio.columns, '213321'
 
 
 def constant_mean(returns,
