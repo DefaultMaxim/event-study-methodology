@@ -161,7 +161,9 @@ def min_risk_portfolio_model(portfolio, keep_shorts: bool = True):
 
         risk = 1/np.sqrt(alpha)
 
-        return x, returns, risk, portfolio.columns
+        data = pd.DataFrame(data=x, index=portfolio.columns, columns=['proportions']).T
+
+        return data, returns, risk
 
 
 def max_sharpe_rate_portfolio(portfolio, keep_shorts: bool = True):
@@ -199,7 +201,9 @@ def max_sharpe_rate_portfolio(portfolio, keep_shorts: bool = True):
 
         risk = np.sqrt(gamma)/beta
 
-        return x, returns, risk, portfolio.columns, '213321'
+        data = pd.DataFrame(data=x, index=portfolio.columns, columns=['proportions']).T
+
+        return data, returns, risk
 
 
 def constant_mean(returns,
