@@ -106,28 +106,28 @@ def permutation_test(portfolio):
 
     pass
 
-
-close = pd.read_csv('data_import/datasets/close_portfolio.csv', index_col='time')
-
-close['market'] = [close.iloc[i].sum() for i in range(len(close))]
-
-close.index = pd.to_datetime(close.index)
-
-date = pd.to_datetime('2022-02-24 07:00:00+00:00')
-
-results_first = single_t_test(portfolio=close, event_date=date)
-
-results_second = single_criterion_t_test(portfolio=close, event_date=date)
-
-display(close)
-
-for i in range(len(results_first)):
-
-    display(i, close.columns[i])
-
-    display(results_first[i])
-
-    display(results_second[i])
-
-portfolio_plot(portfolio=close, event_date=date)
+#
+# close = pd.read_csv('data_import/datasets/close_portfolio.csv', index_col='time')
+#
+# close['market'] = [close.iloc[i].sum() for i in range(len(close))]
+#
+# close.index = pd.to_datetime(close.index)
+#
+# date = pd.to_datetime('2022-02-24 07:00:00+00:00')
+#
+# results_first = single_t_test(portfolio=close, event_date=date)
+#
+# results_second = single_criterion_t_test(portfolio=close, event_date=date)
+#
+# display(close)
+#
+# for i in range(len(results_first)):
+#
+#     display(i, close.columns[i])
+#
+#     display(results_first[i])
+#
+#     display(results_second[i])
+#
+# portfolio_plot(portfolio=close, event_date=date)
 
