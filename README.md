@@ -67,3 +67,14 @@ __SBERP__
 |2023-01-23 07:00:00+00:00	|-0.013860	|-1.174855	|0.242398	|False	|3
 |2023-01-24 07:00:00+00:00	|-0.013510	|-1.145168	|0.254438	|False	|4
 
+__Вы можете видеть, что во время падения цены рынка, цена сбера растет. Это объясняет два True на индексах -4 и -3__, 
+
+__а также почти True (p-value = 0.06) на индексе -1__
+
+__Market Price__
+![market](https://github.com/DefaultMaxim/event-study-methodology/blob/master/examples/example%20market.png?raw=true)
+
+__SBERP__
+![sberp](https://github.com/DefaultMaxim/event-study-methodology/blob/master/examples/example%20sber.png?raw=true)
+
+
