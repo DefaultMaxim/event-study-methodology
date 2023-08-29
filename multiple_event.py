@@ -278,42 +278,42 @@ def skewness_corrected_test(portfolio,
 
     return res[-2 * n:]
 
-
-close = pd.read_csv('data_import/datasets/close_portfolio.csv', index_col='time')
-
-close['market'] = [close.iloc[i].sum() for i in range(len(close))]
-
-close.index = pd.to_datetime(close.index)
-
-date = pd.to_datetime('2022-02-24 07:00:00+00:00')
-
-result_1 = multiple_t_test(portfolio=close, event_date=date)
-
-result_2_aar = multiple_cross_sectional_test(portfolio=close, event_date=date, method='aar')
-result_2_caar = multiple_cross_sectional_test(portfolio=close, event_date=date, method='caar')
-
-result_3_aar = crude_dependence(portfolio=close, event_date=date, method='aar')
-result_3_caar = crude_dependence(portfolio=close, event_date=date, method='caar')
-
-result_4_aar = skewness_corrected_test(portfolio=close, event_date=date, method='aar')
-
-print('RES 1 T_TEST')
-display(result_1)
-
-print('RES 2 CROSS AAR')
-display(result_2_aar)
-
-print('RES 2 CROSS CAAR')
-display(result_2_caar)
-
-print('RES 3 CRUDE AAR')
-display(result_3_aar)
-
-print('RES 3 CRUDE CAAR')
-display(result_3_caar)
-
-print('RES 4 SKEW AAR')
-display(result_4_aar)
-result_4_aar.to_csv('res_example.csv')
-
-market_plot(close.market, event_date=date)
+#
+# close = pd.read_csv('data_import/datasets/close_portfolio.csv', index_col='time')
+#
+# close['market'] = [close.iloc[i].sum() for i in range(len(close))]
+#
+# close.index = pd.to_datetime(close.index)
+#
+# date = pd.to_datetime('2022-02-24 07:00:00+00:00')
+#
+# result_1 = multiple_t_test(portfolio=close, event_date=date)
+#
+# result_2_aar = multiple_cross_sectional_test(portfolio=close, event_date=date, method='aar')
+# result_2_caar = multiple_cross_sectional_test(portfolio=close, event_date=date, method='caar')
+#
+# result_3_aar = crude_dependence(portfolio=close, event_date=date, method='aar')
+# result_3_caar = crude_dependence(portfolio=close, event_date=date, method='caar')
+#
+# result_4_aar = skewness_corrected_test(portfolio=close, event_date=date, method='aar')
+#
+# print('RES 1 T_TEST')
+# display(result_1)
+#
+# print('RES 2 CROSS AAR')
+# display(result_2_aar)
+#
+# print('RES 2 CROSS CAAR')
+# display(result_2_caar)
+#
+# print('RES 3 CRUDE AAR')
+# display(result_3_aar)
+#
+# print('RES 3 CRUDE CAAR')
+# display(result_3_caar)
+#
+# print('RES 4 SKEW AAR')
+# display(result_4_aar)
+# result_4_aar.to_csv('res_example.csv')
+#
+# market_plot(close.market, event_date=date)
