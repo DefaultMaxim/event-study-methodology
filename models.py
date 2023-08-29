@@ -165,7 +165,7 @@ def min_risk_portfolio_model(portfolio, keep_shorts: bool = True):
 
         data = pd.DataFrame(data=x, index=portfolio.columns, columns=['proportions']).T
 
-        ret_tup = namedtuple('Params', ['return', 'risk'])
+        ret_tup = namedtuple('Params', ['ret', 'risk'])
 
         params = ret_tup(returns, risk)
 
@@ -209,7 +209,7 @@ def max_sharpe_rate_portfolio(portfolio, keep_shorts: bool = True):
 
         data = pd.DataFrame(data=x, index=portfolio.columns, columns=['proportions']).T
 
-        ret_tup = namedtuple('Params', ['return', 'risk'])
+        ret_tup = namedtuple('Params', ['ret', 'risk'])
 
         params = ret_tup(returns, risk)
 
