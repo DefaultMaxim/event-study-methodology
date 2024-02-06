@@ -2,14 +2,13 @@ from prepate_data import prepare_data
 from IPython.display import display
 import matplotlib.pyplot as plt
 import pandas as pd
+import os
+from dotenv import load_dotenv
 
 
-token_path = 'token.txt'
+load_dotenv()
 
-with open(token_path) as f:
-    token = f.readlines()
-
-token = token[0]
+token = os.getenv('TOKEN')
 
 fig_path = 'share_figi.txt'
 

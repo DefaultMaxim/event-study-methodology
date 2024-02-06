@@ -30,9 +30,9 @@ def tink_get_data(token: str, fig_file):
 
                     figi=fig,
 
-                    from_=now() - timedelta(days=365*2),
+                    from_=now() - timedelta(days=365),
 
-                    interval=CandleInterval.CANDLE_INTERVAL_DAY,
+                    interval=CandleInterval.CANDLE_INTERVAL_HOUR,
             ):
                 shares[key].append(candle)
 

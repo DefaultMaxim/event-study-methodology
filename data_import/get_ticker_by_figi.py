@@ -7,12 +7,13 @@ from tinkoff.invest.services import InstrumentsService
 from tinkoff.invest.utils import quotation_to_decimal
 
 
-token_path = 'token.txt'
+import os
+from dotenv import load_dotenv
 
-with open(token_path) as f:
-    token = f.readlines()
 
-token = token[0]
+load_dotenv()
+
+token = os.getenv('TOKEN')
 TOKEN = token
 
 logging.basicConfig(format="%(asctime)s %(levelname)s:%(message)s", level=logging.DEBUG)
